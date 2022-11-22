@@ -1,7 +1,7 @@
+import 'module-alias/register'
 import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import route from '$/routes'
-import getConnection from '$/config/db'
 
 dotenv.config()
 

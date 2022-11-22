@@ -15,13 +15,11 @@
   },
   "lint-staged": {
     "*.ts": [
-      "npm run lint",
-      "npm run format",
-      "git add ."
+      "npm run format"
     ]
   },
   "_moduleAliases": {
-    "$/": "build/"
+    "$": "build"
   },
   "keywords": [],
   "author": "",
