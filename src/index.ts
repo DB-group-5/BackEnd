@@ -6,6 +6,9 @@ import route from '$/routes'
 dotenv.config()
 
 const app: Express = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 const port = process.env.PORT
 // Here we assign out routes
 route(app)
