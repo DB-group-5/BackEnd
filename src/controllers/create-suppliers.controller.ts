@@ -26,8 +26,8 @@ class CreateSuppliersController {
         phone_1,
         phone_2
       })
-      res.status(200).json({
-        status_code: 200,
+      res.status(201).json({
+        status_code: 201,
         message: 'Create supplier successfully'
       })
     } catch (err: unknown) {
