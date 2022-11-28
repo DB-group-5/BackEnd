@@ -12,9 +12,15 @@ const pool = mysql.createPool({
 })
 
 pool.getConnection((err, connection) => {
-  if (err) throw err
-  console.log('Database connected successfully')
-  connection.release()
+  
+  try{
+    console.log('Database connected successfully')
+    connection.release()
+  }
+  catch(error){
+    console.log(err)
+  }
+  
 })
 
 export default pool

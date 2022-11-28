@@ -9,6 +9,4 @@ const router: Router = express.Router();
 router.post('/', register);
 router.post('/login', loginUser)
 
-
-
-module.exports = router
+export default router
