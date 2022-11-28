@@ -14,7 +14,7 @@ class SearchController {
       )
       if (result == undefined || result.length == 0) {
         res.status(404).json({
-          status: 404,
+          status_code: 404,
           message: 'Not found'
         })
       }

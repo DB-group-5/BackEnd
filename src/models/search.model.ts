@@ -2,7 +2,7 @@ import pool from '$/config/db'
 import { RowDataPacket } from 'mysql2'
 
 export default class Search {
-  static async index(name: string) {
+  static async index(name: string): Promise<RowDataPacket[] | undefined> {
     let sql = `SELECT c.code as id,c.name,c.color,c.date_supply,c.purchase_price ,s.name as supplier,sp.phone_number 
       FROM catogerty_fabrics c INNER JOIN suppliers s ON c.supplier_code=s.code 
       INNER JOIN supply_phones sp ON sp.supplier_code = s.code WHERE c.name  LIKE "${name}%"; `
@@ -11,7 +11,7 @@ export default class Search {
       return rows
     } catch (err: unknown) {
       if (err instanceof Error) {
-        throw err
+        throw new Error(err.message)
       }
     }
   }
