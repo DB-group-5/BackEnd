@@ -24,7 +24,7 @@ export const createSupplierValidation = () => {
       .isEmpty()
       .withMessage('Partner is required')
       .escape(),
-    body('phone').not().isEmpty().withMessage('Phone is required').escape()
+    body('phone').not().isEmpty().withMessage('Phone is required')
   ]
 }
 export const validate = (req: Request, res: Response, next: NextFunction) => {

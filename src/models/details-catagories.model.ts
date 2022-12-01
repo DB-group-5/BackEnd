@@ -1,22 +1,22 @@
 import pool from '$/config/db'
 import { RowDataPacket } from 'mysql2'
 export default class DetailsCatagoriesModel {
-  static async index(name: string) {
-    const sql = `SELECT code FROM suppliers WHERE name = '${name}'`
-
+  static async index() {
+    const sql = `SELECT s.ID as id,s.Name as name, s.Address as address ,s.Taxcode as tax_code,s.BankAccount as bank_account FROM supplier s`
     try {
-      const [rows, fields] = await pool.promise().query<RowDataPacket[]>(sql)
-      console.log(rows)
-      if (rows) {
-        const code = rows[0].code
-        const sql2 = `SELECT cf.code,cf.name,cf.color,cf.date_supply,cf.purchase_price,cp.date,cp.price as current_price FROM catogerty_fabrics cf JOIN current_prices cp ON cf.code = cp.category_code WHERE supplier_code = 2`
-        const [rows2, fields2] = await pool
-          .promise()
-          .query<RowDataPacket[]>(sql2)
-        if (rows2) {
-          return rows2
-        }
+      const [rows] = await pool.promise().query<RowDataPacket[]>(sql)
+      return rows
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        throw err
       }
+    }
+  }
+  static async showDetail(supplier_id: number) {
+    const sql = `SELECT s.Name as name,fs.SuppliedDate,cf.Name,cf.Color,cf.Purchase_price as purchase_price FROM supplier s JOIN fabric_source fs ON fs.SupID = s.ID JOIN category_fabric cf ON cf.Source_code= fs.Code  WHERE s.ID=${supplier_id} ORDER BY fs.SuppliedDate;`
+    try {
+      const [rows] = await pool.promise().query<RowDataPacket[]>(sql)
+      return rows
     } catch (err: unknown) {
       if (err instanceof Error) {
         throw err
