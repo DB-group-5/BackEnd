@@ -1,18 +1,18 @@
 export interface SearchResults {
   id: number
-  name: string
-  color: string
-  date_supply: string
-  purchase_price: number
-  supplier: string
+  supplier_name: string
   phone_number: string
+  supplied_date: string
+  fabric_name: string
+  color: string
+  purchase_price: number
 }
 export interface SearchResponse {
   id: number
-  name: string
-  color: string
-  date_supply: string
-  purchase_price: number
-  supplier: string
+  supplier_name: string
   phone_number: string[]
+  supplied_date: string
+  fabric_name: string
+  color: string
+  purchase_price: number
 }

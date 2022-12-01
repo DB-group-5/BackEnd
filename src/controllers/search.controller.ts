@@ -3,6 +3,7 @@ import searchModel from '$/models/search.model'
 import { SearchResults, SearchResponse } from '$/types/search'
 import { QueryError, RowDataPacket } from 'mysql2'
 import { combinePhones } from '$/utils/combinePhones'
+import { validationResult } from 'express-validator'
 
 class SearchController {
   // [GET] ?name={category-name}
@@ -15,15 +16,16 @@ class SearchController {
       if (result == undefined || result.length == 0) {
         res.status(404).json({
           status_code: 404,
-          message: 'Not found'
+          message: 'Not found any data'
+        })
+      } else {
+        const data: SearchResponse[] = combinePhones(result as SearchResults[])
+        res.status(200).json({
+          status_code: 200,
+          data,
+          message: 'Success'
         })
       }
-      const data: SearchResponse[] = combinePhones(result as SearchResults[])
-      res.status(200).json({
-        status_code: 200,
-        data,
-        message: 'Success'
-      })
     } catch (err: unknown) {
       if (err instanceof Error) {
         res.status(500).json({

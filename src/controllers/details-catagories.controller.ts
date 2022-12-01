@@ -6,6 +6,7 @@ class DetailsCatagoriesController {
   // [get] /?name=
   async index(req: Request, res: Response) {
     try {
+      console.log(req.query.name)
       const data = await detailsCatagoriesModel.index(req.query.name as string)
       res.status(200).json({
         status_code: 200,
