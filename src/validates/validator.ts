@@ -5,9 +5,34 @@ export const searchValidation = () => {
     query('name').not().isEmpty().withMessage('Input is required').escape()
   ]
 }
+export const createSupplierValidation = () => {
+  return [
+    body('name').not().isEmpty().withMessage('Name is required').escape(),
+    body('address').not().isEmpty().withMessage('Address is required').escape(),
+    body('tax_code')
+      .not()
+      .isEmpty()
+      .withMessage('Tax code is required')
+      .escape(),
+    body('bank_account')
+      .not()
+      .isEmpty()
+      .withMessage('Bank account is required')
+      .escape(),
+    body('partner_id')
+      .not()
+      .isEmpty()
+      .withMessage('Partner is required')
+      .escape(),
+    body('phone').not().isEmpty().withMessage('Phone is required').escape()
+  ]
+}
 export const validate = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req)
   if (errors.isEmpty()) {
+    if (req.body.partner_id) {
+      req.body.partner_id = parseInt(req.body.partner_id)
+    }
     return next()
   }
   res.status(400).json({

@@ -3,7 +3,6 @@ export interface ResponseFormSupplier {
   address: string
   tax_code: string
   bank_account: string
-  partner_code: number
-  phone_1: string
-  phone_2: string
+  partner_id: number
+  phone: string[]
 }

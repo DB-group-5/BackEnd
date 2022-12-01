@@ -12,19 +12,17 @@ class CreateSuppliersController {
         address,
         tax_code,
         bank_account,
-        partner_code,
-        phone_1,
-        phone_2
+        partner_id,
+        phone
       }: ResponseFormSupplier = req.body
-      // Middleware to validate value
-      const data = await createSuppliersModel.index({
+
+      await createSuppliersModel.index({
         name,
         address,
         tax_code,
         bank_account,
-        partner_code,
-        phone_1,
-        phone_2
+        partner_id,
+        phone
       })
       res.status(201).json({
         status_code: 201,
@@ -32,7 +30,7 @@ class CreateSuppliersController {
       })
     } catch (err: unknown) {
       if (err instanceof Error) {
-        res.status(400).json({ status_code: 400, message: err.message })
+        res.status(500).json({ status_code: 500, message: err.message })
       }
     }
   }
