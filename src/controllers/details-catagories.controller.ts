@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import detailsCatagoriesModel from '$/models/details-catagories.model'
 import { QueryError, RowDataPacket } from 'mysql2'
+import { formatDate } from '$/utils/formatDate'
 
 class DetailsCatagoriesController {
   // [get] /
@@ -31,6 +32,55 @@ class DetailsCatagoriesController {
       if (data?.length === 0) {
         res.status(404).json({ status_code: 404, message: 'Not found' })
       } else {
+        res.json({
+          status_code: 200,
+          data,
+          message: 'success'
+        })
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(500).json({ status_code: 500, message: err.message })
+      }
+    }
+  }
+  //[get] /bolt/?name= & source_code=
+  async showBolt(req: Request, res: Response) {
+    const { name, source_code } = req.query
+    try {
+      const data = await detailsCatagoriesModel.showBolt(
+        name as string,
+        parseInt(source_code as string)
+      )
+      if (data?.length === 0) {
+        res.status(404).json({ status_code: 404, message: 'Not found' })
+      } else {
+        res.json({
+          status_code: 200,
+          data,
+          message: 'success'
+        })
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(500).json({ status_code: 500, message: err.message })
+      }
+    }
+  }
+  //[get] /current-price/?name= & source_code=
+  async showCurrentPrice(req: Request, res: Response) {
+    const { name, source_code } = req.query
+    try {
+      const data = await detailsCatagoriesModel.showCurrentPrice(
+        name as string,
+        parseInt(source_code as string)
+      )
+      if (data?.length === 0 || data === undefined) {
+        res.status(404).json({ status_code: 404, message: 'Not found' })
+      } else {
+        for (let i = 0; i < data.length; i++) {
+          data[i].date_set = formatDate(data[i].date_set)
+        }
         res.json({
           status_code: 200,
           data,
