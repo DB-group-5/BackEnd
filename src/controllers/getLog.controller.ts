@@ -6,7 +6,7 @@ import { Customer, ReportCustomer } from '$/types/customer'
 class getLogController {
   async index(req: Request, res: Response) {
     try {
-      const idCustomer = req.query.name as any
+      const idCustomer = req.query.id as any
       const result: RowDataPacket[] | undefined = await getLogModel.index(
         idCustomer
       )

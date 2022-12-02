@@ -54,8 +54,26 @@ export const loginUser = (req: Request, res: Response) => {
                 token
               })
             } else {
-              res.json({
-                msg: 'Password incorrect'
+              const userPassword = data[0].password
+              console.log(password)
+              bcrypt.compare(password, userPassword).then((result) => {
+                if (result) {
+                  const token = jwt.sign(
+                    {
+                      userName: userName,
+                      expiresIn: '2 days'
+                    },
+                    process.env.SECRET_KEY || '123'
+                  )
+
+                  res.json({
+                    token
+                  })
+                } else {
+                  res.json({
+                    message: 'Password incorrect'
+                  })
+                }
               })
             }
           })
