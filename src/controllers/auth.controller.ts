@@ -48,7 +48,7 @@ export const loginUser = (req: Request, res: Response) => {
                         })
                     } else {
                         res.json({
-                            msg: 'Password incorrect',
+                            message: 'Password incorrect',
                         })
                     }
                 })
