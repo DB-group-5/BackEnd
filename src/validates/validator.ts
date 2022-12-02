@@ -27,6 +27,10 @@ export const createSupplierValidation = () => {
     body('phone').not().isEmpty().withMessage('Phone is required')
   ]
 }
+export const logValidation = () => {
+  return [query('id').not().isEmpty().withMessage('Input is required').escape()]
+}
+
 export const validate = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req)
   if (errors.isEmpty()) {
