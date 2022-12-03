@@ -3,61 +3,53 @@ import pool from '$/config/db';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
+import { registerModel,login } from '$/models/auth.model';
 
-export const register = async (req: Request, res: Response) => {
-
-    const { userName, password } = req.body;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    pool.query('INSERT INTO fabric_store set ?', { userName:userName, password: hashedPassword }, (err, data) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.json({
-                msg: 'success',
-            })
-        }
-    })
-}
-
-export const loginUser = (req: Request, res: Response) => {
+class loginUser {
     
-    const { userName, password } = req.body;
+    async index(req: Request, res: Response) {
+        try {
+            console.log(req.body)
+            const username = req.body.username as string;
+            const password = req.body.password as string;
 
-    pool.query('SELECT * FROM fabric_store WHERE  = ' + pool.escape(userName), (err:string, data:RowDataPacket) => {
-        if(err) {
-            console.log(err)
-        } else {
-            if(data.length == 0) {
-                res.json({
-                    msg: 'The user does not exist in the database',                    
-                })
-            } else {
-                const userPassword = data[0].password;
+            const result: RowDataPacket[] | undefined = await login.index(
+            username
+          )
+          if (result == undefined || result.length == 0) {
+            res.status(404).json({
+              status_code: 404,
+              message: 'Not found any data'
+            })
+          } else {
+                const hashedPassword = result[0].password;
                 console.log(password)
-                bcrypt.compare(password, userPassword).then((result) => {
+                bcrypt.compare(password, hashedPassword).then((result) => {
                     if(result) {
                         const token = jwt.sign({
-                            userName: userName,
+                            username: username,
                             expiresIn: '2 days',
                         }, process.env.SECRET_KEY || '123')
 
-                        res.json({
+                        res.status(200).json({
                             token
                         })
                     } else {
-                        res.json({
+                        res.status(404).json({
                             message: 'Password incorrect',
                         })
                     }
                 })
-
-                
-            }           
-        }
-    })
-
-
-    
+            
+          }
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            res.status(500).json({
+              status_code: 500,
+              message: err.message
+            })
+          }
+        } 
+    }
 }
+export default new loginUser()
