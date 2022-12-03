@@ -13,7 +13,7 @@ export default class DetailsCatagoriesModel {
     }
   }
   static async showDetail(supplier_id: number) {
-    const sql = `SELECT s.Name as name,fs.Code as source_code ,fs.SuppliedDate,cf.Name,cf.Color,cf.Purchase_price as purchase_price FROM supplier s JOIN fabric_source fs ON fs.SupID = s.ID JOIN category_fabric cf ON cf.Source_code= fs.Code  WHERE s.ID=${supplier_id} ORDER BY fs.SuppliedDate;`
+    const sql = `SELECT s.Name as name_supplier,fs.Code as source_code ,fs.SuppliedDate as supplied_date,cf.Name as name_category,cf.Color as color,cf.Purchase_price as purchase_price FROM supplier s JOIN fabric_source fs ON fs.SupID = s.ID JOIN category_fabric cf ON cf.Source_code= fs.Code  WHERE s.ID=${supplier_id} ORDER BY fs.SuppliedDate;`
     try {
       const [rows] = await pool.promise().query<RowDataPacket[]>(sql)
       return rows

@@ -2,6 +2,8 @@ import { Request, Response } from 'express'
 import detailsCatagoriesModel from '$/models/details-catagories.model'
 import { QueryError, RowDataPacket } from 'mysql2'
 import { formatDate } from '$/utils/formatDate'
+import { combineSupplier } from '$/utils/combineSupplier'
+import { DetailSupplier } from '$/types/suppliers'
 
 class DetailsCatagoriesController {
   // [get] /
@@ -29,12 +31,13 @@ class DetailsCatagoriesController {
       const data = await detailsCatagoriesModel.showDetail(
         parseInt(req.params.supplier_id)
       )
-      if (data?.length === 0) {
+      if (data?.length === 0 || data === undefined) {
         res.status(404).json({ status_code: 404, message: 'Not found' })
       } else {
+        const result = combineSupplier(data as DetailSupplier[])
         res.json({
           status_code: 200,
-          data,
+          data: result,
           message: 'success'
         })
       }

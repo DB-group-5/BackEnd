@@ -8,9 +8,9 @@
     "postinstall": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node build/index.js",
+    "start": "NODE_ENV=production node build/index.js",
     "dev": "ts-node-dev  --respawn --transpile-only  src/index.ts",
-    "dev:start": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\"",
+    "dev:start": "concurrently \"npx tsc --watch\" \"NODE_ENV=development nodemon -q build/index.js\"",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "lint-staged": {
