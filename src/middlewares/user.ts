@@ -7,8 +7,7 @@ export const validateRegister = (
   next: NextFunction
 ) => {
   // username min length 3
-
-  if (req.body.username < 3) {
+  if (req.body.username.length < 3) {
     res.status(404).json({
       status_code: 404,
       message: 'Please enter a username with min. 3 chars'
@@ -30,8 +29,9 @@ export const validateRegister = (
   //     msg: 'Both passwords must match'
   //   });
   // }
-
-  next()
+  else {
+    next()
+  }
 }
 export const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   try {

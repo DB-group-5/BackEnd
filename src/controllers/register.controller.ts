@@ -12,7 +12,7 @@ class registerController {
         username,
         hashedPassword
       )
-      if (result == undefined || result.length == 0) {
+      if (result == undefined || result?.length == 0) {
         res.status(404).json({
           status_code: 404,
           message: 'Not found any data'
