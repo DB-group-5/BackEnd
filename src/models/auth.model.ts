@@ -1,29 +1,34 @@
-import { Request, Response, NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
+import pool from '$/config/db'
+import { RowDataPacket } from 'mysql2'
 
-const validateToken = (req: Request, res: Response, next: NextFunction) => {
-  const headerToken = req.headers['authorization']
-
-  if (headerToken != undefined && headerToken.startsWith('Bearer')) {
-    const bearerToken = headerToken.slice(7)
-
+export class registerModel {
+  static async index(
+    username: string,
+    password: string
+  ): Promise<RowDataPacket[] | undefined> {
+    let sql = `INSERT INTO users (username,password) values  ('${username}','${password}');`
     try {
-      const tokenValid = jwt.verify(
-        bearerToken,
-        process.env.SECRET_KEY || '123'
-      )
-      console.log(tokenValid)
-      next()
-    } catch (error) {
-      res.status(400).json({
-        error: 'invalid token'
-      })
+      const [rows] = await pool.promise().query<RowDataPacket[]>(sql)
+      return rows
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        throw new Error(err.message)
+      }
     }
-  } else {
-    res.status(400).json({
-      error: 'Access denied'
-    })
   }
 }
-
-export default validateToken
+export class login {
+  static async index(username: string): Promise<RowDataPacket[] | undefined> {
+    let sql = `SELECT * FROM users WHERE username = '${username}';`
+    console.log(username)
+    try {
+      const [rows] = await pool.promise().query<RowDataPacket[]>(sql)
+      console.log(rows)
+      return rows
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        throw new Error(err.message)
+      }
+    }
+  }
+}

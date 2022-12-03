@@ -13,7 +13,7 @@ export default class getLog {
     INNER JOIN bolt b ON o.Code = b.orderCode
     WHERE c.id LIKE '${id}%';`
     try {
-      const [rows, fields] = await pool.promise().query<RowDataPacket[]>(sql)
+      const [rows] = await pool.promise().query<RowDataPacket[]>(sql)
       return rows
     } catch (err: unknown) {
       if (err instanceof Error) {
