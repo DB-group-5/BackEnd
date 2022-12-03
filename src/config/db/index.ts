@@ -10,17 +10,15 @@ if (process.env.NODE_ENV === 'development') {
     user: 'root',
     password: '',
     database: 'fabric_store',
-    port: 3306,
-    waitForConnections: true
+    port: 3306
   }
 } else if (process.env.NODE_ENV === 'production') {
   option = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT,
-    waitforconnections: true
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
   }
 }
 
