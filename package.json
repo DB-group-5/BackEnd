@@ -7,7 +7,7 @@
     "pre-commit": "lint-staged",
     "postinstall": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "node build/index.js",
     "dev": "ts-node-dev  --respawn --transpile-only  src/index.ts",
     "dev:start": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\"",
