@@ -9,7 +9,6 @@ class loginUser {
     
     async index(req: Request, res: Response) {
         try {
-            console.log(req.body)
             const username = req.body.username as string;
             const password = req.body.password as string;
 
@@ -23,7 +22,6 @@ class loginUser {
             })
           } else {
                 const hashedPassword = result[0].password;
-                console.log(password)
                 bcrypt.compare(password, hashedPassword).then((result) => {
                     if(result) {
                         const token = jwt.sign({

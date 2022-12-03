@@ -1,4 +1,4 @@
-import { Customer ,ReportCustomer } from '$/types/customer'
+import { Customer, ReportCustomer } from '$/types/customer'
 export const combine = (result: Customer[]): ReportCustomer[] => {
   const data: ReportCustomer[] = []
   const map = new Map()
@@ -8,9 +8,9 @@ export const combine = (result: Customer[]): ReportCustomer[] => {
 
       data.push({
         id: item.id,
-        FirstName: item.FirstName,	  
+        FirstName: item.FirstName,
         LastName: item.LastName,
-	    address: item.address,
+        address: item.address,
         category: item.category,
         length: item.length,
         boltCode: item.boltCode,
@@ -23,7 +23,7 @@ export const combine = (result: Customer[]): ReportCustomer[] => {
     } else {
       for (const i of data) {
         if (i.date == item.date) {
-          i.length += item.length;
+          i.length += item.length
           break
         }
       }

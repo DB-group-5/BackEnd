@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import getLogController  from '$/controllers/getLog.controller';
-import { logValidation,validate } from '$/validates/validator';
+import { Router } from 'express'
+import getLogController from '$/controllers/getLog.controller'
+import { logValidation, validate } from '$/validates/validator'
 
-const router = Router();
+const router = Router()
 
-router.get('/', logValidation(), validate ,getLogController.index);
+router.get('/', logValidation(), validate, getLogController.index)
 
-export default router;
+export default router

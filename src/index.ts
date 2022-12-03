@@ -2,14 +2,18 @@ import 'module-alias/register'
 import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import route from '$/routes'
+import cors from 'cors'
 
 dotenv.config()
 
 const app: Express = express()
-const port = process.env.PORT
-// Here we assign out routes
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+const port = process.env.PORT
+
+// Here we assign out routes
 route(app)
 
 // Listening

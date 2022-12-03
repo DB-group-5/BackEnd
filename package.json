@@ -7,10 +7,10 @@
     "pre-commit": "lint-staged",
     "postinstall": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
-    "start": "node build/index.js",
-    "dev": "nodemon -r tsconfig-paths/register src/index.ts",
-    "dev:start": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\"",
+    "build": "tsc",
+    "start": "NODE_ENV=production node build/index.js",
+    "dev": "ts-node-dev  --respawn --transpile-only  src/index.ts",
+    "dev:start": "concurrently \"npx tsc --watch\" \"NODE_ENV=development nodemon -q build/index.js\"",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "lint-staged": {
@@ -36,14 +36,19 @@
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
+    "moment": "^2.29.4",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "shortid": "^2.2.16",
+    "ts-node-dev": "^2.0.0",
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.9",
+    "@types/shortid": "^0.0.29",
     "@types/uuid": "^8.3.4",
     "concurrently": "^7.6.0",
     "husky": "^8.0.2",
@@ -51,7 +56,6 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.9.3"
   }
 }
