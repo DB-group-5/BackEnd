@@ -19,7 +19,7 @@ function route(app: Express) {
   app.use('/api/v1/report', logRouter)
   app.use('/api/v1/register', registerRouter)
   app.use('/api/v1/employees', verifyToken, employeesRouter)
-  app.use('/api/v1/customers', customersRouter)
+  app.use('/api/v1/customers', verifyToken, customersRouter)
   app.use('/', (req: Request, res: Response) => {
     res.send('Server is running. Wish you a good day!')
   })

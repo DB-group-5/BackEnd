@@ -16,12 +16,18 @@ export const verifyToken = (
     const accessToken = token.split(' ')[1]
     jwt.verify(accessToken, process.env.SECRET_KEY || '123', (err, user) => {
       if (err) {
-        res.status(403).json('Token is not valid!')
+        return res.status(403).json({
+          status_code: 403,
+          message: 'Token is not valid!'
+        })
       }
       req.body.user = user
       next()
     })
   } else {
-    res.status(401).json("You're not authenticated")
+    res.status(401).json({
+      status_code: 401,
+      message: "You're not authenticated"
+    })
   }
 }

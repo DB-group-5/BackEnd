@@ -11,6 +11,7 @@ class CustomersController {
         res.status(404).json({ status_code: 404, message: 'Not found' })
       } else {
         for (let i = 0; i < data.length; i++) {
+          data[i].is_bad_depth = data[i].is_bad_depth === 0 ? false : true
           data[i].start_date_depth = formatDate(data[i].start_date_depth)
         }
         res.json({
