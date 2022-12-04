@@ -2,13 +2,12 @@ import { RowDataPacket } from 'mysql2'
 
 export interface Customer {
   id: number
-  FirstName: string
-  LastName: string
+  fullName: string
   address: string
   category: string
   length: number
   boltCode: string
-  date: Date
+  date: string
   status: string
   reason: string
   totalPrice: number
@@ -16,13 +15,12 @@ export interface Customer {
 }
 export interface ReportCustomer {
   id: number
-  FirstName: string
-  LastName: string
+  fullName: string
   address: string
   category: string
   length: number
   boltCode: string
-  date: Date
+  date: string
   status: string
   reason: string
   totalPrice: number

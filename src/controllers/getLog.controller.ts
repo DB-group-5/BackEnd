@@ -17,6 +17,7 @@ class getLogController {
         })
       } else {
         const data: ReportCustomer[] = combine(result as Customer[])
+
         res.status(200).json({
           status_code: 200,
           data,
