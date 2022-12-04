@@ -1,4 +1,4 @@
-import { body, query, validationResult } from 'express-validator'
+import { body, check, query, validationResult } from 'express-validator'
 import { NextFunction, Request, Response } from 'express'
 export const searchValidation = () => {
   return [
@@ -13,6 +13,8 @@ export const createSupplierValidation = () => {
       .not()
       .isEmpty()
       .withMessage('Tax code is required')
+      .isLength({ max: 6 })
+      .withMessage('Tax code must be <  6 characters')
       .escape(),
     body('bank_account')
       .not()

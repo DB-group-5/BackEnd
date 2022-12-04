@@ -15,6 +15,7 @@ class CreateSuppliersController {
         partner_id,
         phone
       }: ResponseFormSupplier = req.body
+      console.log(req.body.name)
       await createSuppliersModel.index({
         name,
         address,
